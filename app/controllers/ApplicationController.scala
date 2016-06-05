@@ -40,28 +40,28 @@ class ApplicationController @Inject()(pocketMathService: PocketMathService) exte
   }
 
   def avgTransactions(maybeCity: Option[String]): Action[AnyContent] = Action.async {
-    pocketMathService.getAvgTransactions(maybeCity) map {
+    pocketMathService.getTransactionsAvg(maybeCity) map {
       case Some(transactions) =>
-        Ok(Json.obj("status" -> Json.obj("code" -> 2000, "msg" -> "Transactions data found"), "data" -> transactions))
-      case None =>
-        NotFound(Json.obj("status" -> Json.obj("code" -> 2005, "msg" -> "No transactions data found")))
-    } recover {
-      case t: Throwable =>
-        t.printStackTrace
-        InternalServerError(Json.obj("status" -> Json.obj("code" -> 2001, "msg" -> "Failed to retrieve transactions")))
-    }
-  }
-
-  def transaction(value: String): Action[AnyContent] = Action.async {
-    pocketMathService.getTransaction(value) map {
-      case Some(transaction) =>
-        Ok(Json.obj("status" -> Json.obj("code" -> 3000, "msg" -> "Transactions data found"), "data" -> transaction))
+        Ok(Json.obj("status" -> Json.obj("code" -> 3000, "msg" -> "Transactions data found"), "data" -> transactions))
       case None =>
         NotFound(Json.obj("status" -> Json.obj("code" -> 3005, "msg" -> "No transactions data found")))
     } recover {
       case t: Throwable =>
         t.printStackTrace
         InternalServerError(Json.obj("status" -> Json.obj("code" -> 3001, "msg" -> "Failed to retrieve transactions")))
+    }
+  }
+
+  def transaction(value: String): Action[AnyContent] = Action.async {
+    pocketMathService.getTransaction(value) map {
+      case Some(transaction) =>
+        Ok(Json.obj("status" -> Json.obj("code" -> 4000, "msg" -> "Transaction data found"), "data" -> transaction))
+      case None =>
+        NotFound(Json.obj("status" -> Json.obj("code" -> 4005, "msg" -> "No transaction data found")))
+    } recover {
+      case t: Throwable =>
+        t.printStackTrace
+        InternalServerError(Json.obj("status" -> Json.obj("code" -> 4001, "msg" -> "Failed to retrieve transaction")))
     }
   }
 

@@ -52,14 +52,19 @@ class PocketMathService @Inject()(config: Configuration, wsClient: WSClient) {
     }
   }
 
-  def getAvgTransactions(maybeCity: Option[String]): Future[Option[Double]] = {
+  def getTransactionsAvg(maybeCity: Option[String]): Future[Option[Double]] = {
     if (maybePocketMathHost.isDefined & maybeTransactionsEndpoint.isDefined && maybeApiKey.isDefined) {
       val eventualResult = getTraders(maybeCity) map {
         case Some(traders) =>
           getTransactions(None) map {
             case Some(transactions) =>
-              val tradersList = traders.filter(_.city == maybeCity.get).map(_.id)
-              Some(transactions.filter(_.traderId.contains(tradersList)).map(_.value).sum / tradersList.size)
+              var tradersList = traders.map(_.id)
+              if (maybeCity.isDefined) {
+                tradersList = traders.filter(_.city.toLowerCase == maybeCity.get.toLowerCase).map(_.id)
+                Some((transactions.filter(p => tradersList.contains(p.traderId)).map(_.value).sum) / tradersList.size)
+              } else {
+                Some(transactions.map(_.value).sum / transactions.size)
+              }
             case None =>
               None
           }

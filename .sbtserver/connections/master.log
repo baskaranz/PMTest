@@ -1,7 +1,10 @@
-New log file opened at Mon Jun 06 02:58:39 SGT 2016 by 1920@Baskarans-MBP
-Taking next connection to: 54448
-New client attempting to connect on port: 54449-54448
-  Address = /192.168.1.226:54448
-This client on port 54449 has uuid a755d913-1c90-4966-9587-34cb7c363a25 configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
-Connected Clients: play-fork-run-a755d913-1c90-4966-9587-34cb7c363a25
-Taking next connection to: 54448
+New log file opened at Mon Jun 06 05:25:43 SGT 2016 by 2508@Baskarans-MBP
+Taking next connection to: 56371
+New client attempting to connect on port: 56372-56371
+  Address = /192.168.1.226:56371
+This client on port 56372 has uuid ca94e266-1c00-4944-bbcd-98f359165b5f configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
+Connected Clients: play-fork-run-ca94e266-1c00-4944-bbcd-98f359165b5f
+Taking next connection to: 56371
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 56371
