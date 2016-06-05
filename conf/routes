@@ -3,7 +3,7 @@
 # ~~~~
 
 GET     /traders                           controllers.ApplicationController.traders(city: Option[String] ?= None)
-GET     /transaction/:value                controllers.ApplicationController.transaction(value: String ?= "high")
+GET     /transaction                       controllers.ApplicationController.transaction(value: String ?= "high")
 GET     /transactions                      controllers.ApplicationController.transactions(year: Option[Int] ?= None)
 GET     /transactions/avg                  controllers.ApplicationController.avgTransactions(city: Option[Int] ?= None)
 
