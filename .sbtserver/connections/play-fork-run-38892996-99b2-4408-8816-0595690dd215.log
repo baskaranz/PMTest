@@ -8817,3 +8817,22 @@ Sending msg to client play-fork-run-38892996-99b2-4408-8816-0595690dd215: Detach
 Sending msg to client play-fork-run-38892996-99b2-4408-8816-0595690dd215: DetachedLogEvent(LogMessage(debug,> server-post-command-cleanup))
 Sending msg to client play-fork-run-38892996-99b2-4408-8816-0595690dd215: ExecutionSuccess(4)
 Sending msg to client play-fork-run-38892996-99b2-4408-8816-0595690dd215: DetachedLogEvent(LogMessage(debug,> server-handle-next-server-request))
+Got request: UnlistenToEvents()
+Reading next message from client.
+Sending msg to client play-fork-run-38892996-99b2-4408-8816-0595690dd215: (4,ReceivedResponse())
+Got request: ListenToValue(AttributeKey[play.forkrun.protocol.ForkConfig]("playForkConfig") in Scope(Build: file:/Users/baskaran/Work/misc/pm-service/, , Project: ProjectReference(file:/Users/baskaran/Work/misc/pm-service/,root)))
+Reading next message from client.
+Got request: UnlistenToValue(AttributeKey[play.forkrun.protocol.ForkConfig]("playForkConfig") in Scope(Build: file:/Users/baskaran/Work/misc/pm-service/, , Project: ProjectReference(file:/Users/baskaran/Work/misc/pm-service/,root)))
+Reading next message from client.
+Sending msg to client play-fork-run-38892996-99b2-4408-8816-0595690dd215: (5,ReceivedResponse())
+Got request: ListenToValue(AttributeKey[play.runsupport.Reloader$CompileResult]("playForkReload") in Scope(Build: file:/Users/baskaran/Work/misc/pm-service/, , Project: ProjectReference(file:/Users/baskaran/Work/misc/pm-service/,root)))
+Reading next message from client.
+Got request: UnlistenToValue(AttributeKey[play.runsupport.Reloader$CompileResult]("playForkReload") in Scope(Build: file:/Users/baskaran/Work/misc/pm-service/, , Project: ProjectReference(file:/Users/baskaran/Work/misc/pm-service/,root)))
+Reading next message from client.
+Sending msg to client play-fork-run-38892996-99b2-4408-8816-0595690dd215: (6,ReceivedResponse())
+Client play-fork-run-38892996-99b2-4408-8816-0595690dd215 EOF, shutting down.
+Stopping client.
+Client play-fork-run-38892996-99b2-4408-8816-0595690dd215 thread exiting.
+Dropping message (7,ReceivedResponse()) to dead client play-fork-run-38892996-99b2-4408-8816-0595690dd215
+Dropping message (8,ReceivedResponse()) to dead client play-fork-run-38892996-99b2-4408-8816-0595690dd215
+Dropping message (0,ReceivedResponse()) to dead client play-fork-run-38892996-99b2-4408-8816-0595690dd215

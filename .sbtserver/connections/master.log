@@ -27,3 +27,12 @@ New client attempting to connect on port: 54004-53997
 This client on port 54004 has uuid 8460d30e-0c0d-42ef-a199-4d9bbd2b7af5 configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
 Connected Clients: play-fork-run-38892996-99b2-4408-8816-0595690dd215, play-fork-run-8460d30e-0c0d-42ef-a199-4d9bbd2b7af5
 Taking next connection to: 53997
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 53997
+Checking to see if clients are empty...
+No non-daemon clients connected after 3 min. Shutting down.
+Server socket thread exiting.
+0 clients open, will close them...
+All client sockets have been closed.
+Closing the 1789@Baskarans-MBP logs at Mon Jun 06 02:29:19 SGT 2016, goodbye.
