@@ -2,7 +2,7 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET     /traders                           controllers.ApplicationController.traders
+GET     /traders                           controllers.ApplicationController.traders(city: Option[String] ?= None)
 GET     /transactions                      controllers.ApplicationController.transactions
 
 # Map static resources from the /public folder to the /assets URL path

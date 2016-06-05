@@ -13,8 +13,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
   */
 class ApplicationController @Inject()(pocketMathService: PocketMathService) extends Controller {
 
-  def traders: Action[AnyContent] = Action.async {
-    pocketMathService.getTraders map {
+  def traders(maybeCity: Option[String]): Action[AnyContent] = Action.async {
+    pocketMathService.getTraders(maybeCity) map {
       case Some(traders) =>
         Ok(Json.obj("status" -> Json.obj("code" -> 1000, "msg" -> "Traders data found"), "data" -> traders))
       case None =>

@@ -21,14 +21,24 @@ class PocketMathService @Inject()(config: Configuration, wsClient: WSClient) {
   lazy val maybeTransactionsEndpoint = config.getString("pocketmath.endpoint.transactions")
   lazy val maybeApiKey = config.getString("pocketmath.apiKey")
 
-  def getTraders: Future[Option[List[Trader]]] = {
+  def  getTraders(maybeCity: Option[String]): Future[Option[List[Trader]]] = {
     if (maybePocketMathHost.isDefined && maybeTradersEndpoint.isDefined && maybeApiKey.isDefined) {
       val eventualWSResponse = wsClient.url(maybePocketMathHost.get + maybeTradersEndpoint.get).
         withRequestTimeout(5000 milliseconds).
         withHeaders("x-api-key" -> maybeApiKey.get).
         get()
       eventualWSResponse map { wsResponse =>
-        Json.parse(wsResponse.json.toString).asOpt[List[Trader]]
+        val maybeTraders: Option[List[Trader]] = Json.parse(wsResponse.json.toString).asOpt[List[Trader]]
+        maybeTraders match {
+          case Some(traders) =>
+            if(maybeCity.isDefined) {
+              Some(traders.filter(_.city == maybeCity.get).sortBy(f => f.name))
+            } else {
+              Some(traders)
+            }
+          case None =>
+            None
+        }
       } recover {
         case t: Throwable =>
           Logger.error("exception while fetching traders")
