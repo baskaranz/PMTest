@@ -63,7 +63,7 @@ class PocketMathService @Inject()(config: Configuration, wsClient: WSClient) {
         maybeTransactions match {
           case Some(transactions) =>
             if(maybeYear.isDefined) {
-              Some(transactions.filter(f => new DateTime(f.timestamp).getYear == maybeYear.get))
+              Some(transactions.filter(f => new DateTime(f.timestamp * 1000L).getYear == maybeYear.get))
             } else {
               Some(transactions)
             }
