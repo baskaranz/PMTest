@@ -3,6 +3,7 @@ package services
 import javax.inject.Inject
 
 import models.{Transaction, Trader}
+import org.joda.time.DateTime
 import play.api.{Logger, Configuration}
 import play.api.libs.json.Json
 import play.api.libs.ws.WSClient
@@ -32,7 +33,7 @@ class PocketMathService @Inject()(config: Configuration, wsClient: WSClient) {
         maybeTraders match {
           case Some(traders) =>
             if(maybeCity.isDefined) {
-              Some(traders.filter(_.city == maybeCity.get).sortBy(f => f.name))
+              Some(traders.filter(_.city.toLowerCase == maybeCity.get.toLowerCase).sortBy(f => f.name))
             } else {
               Some(traders)
             }
@@ -51,14 +52,24 @@ class PocketMathService @Inject()(config: Configuration, wsClient: WSClient) {
     }
   }
 
-  def getTransactions: Future[Option[List[Transaction]]] = {
+  def getTransactions(maybeYear: Option[Int]): Future[Option[List[Transaction]]] = {
     if (maybePocketMathHost.isDefined & maybeTransactionsEndpoint.isDefined && maybeApiKey.isDefined) {
       val eventualWSResponse = wsClient.url(maybePocketMathHost.get + maybeTransactionsEndpoint.get).
         withRequestTimeout(5000 milliseconds).
         withHeaders("x-api-key" -> maybeApiKey.get).
         get()
       eventualWSResponse map { wsResponse =>
-        Json.parse(wsResponse.json.toString).asOpt[List[Transaction]]
+        val maybeTransactions = Json.parse(wsResponse.json.toString).asOpt[List[Transaction]]
+        maybeTransactions match {
+          case Some(transactions) =>
+            if(maybeYear.isDefined) {
+              Some(transactions.filter(f => new DateTime(f.timestamp).getYear == maybeYear.get))
+            } else {
+              None
+            }
+          case None =>
+            None
+        }
       } recover {
         case t: Throwable =>
           Logger.error("exception while fetching transactions")
