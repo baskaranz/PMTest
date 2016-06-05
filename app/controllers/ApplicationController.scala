@@ -26,8 +26,8 @@ class ApplicationController @Inject()(pocketMathService: PocketMathService) exte
     }
   }
 
-  def transactions(year: Option[Int], value: Option[String]): Action[AnyContent] = Action.async {
-    pocketMathService.getTransactions map {
+  def transactions(maybeYear: Option[Int]): Action[AnyContent] = Action.async {
+    pocketMathService.getTransactions(maybeYear) map {
       case Some(traders) =>
         Ok(Json.obj("status" -> Json.obj("code" -> 2000, "msg" -> "Transactions data found"), "data" -> traders))
       case None =>
