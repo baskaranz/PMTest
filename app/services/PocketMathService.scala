@@ -52,6 +52,32 @@ class PocketMathService @Inject()(config: Configuration, wsClient: WSClient) {
     }
   }
 
+  def getAvgTransactions(maybeCity: Option[String]): Future[Option[Double]] = {
+    if (maybePocketMathHost.isDefined & maybeTransactionsEndpoint.isDefined && maybeApiKey.isDefined) {
+      val eventualResult = getTraders(maybeCity) map {
+        case Some(traders) =>
+          getTransactions(None) map {
+            case Some(transactions) =>
+              val tradersList = traders.filter(_.city == maybeCity.get).map(_.id)
+              Some(transactions.filter(_.traderId.contains(tradersList)).map(_.value).sum / tradersList.size)
+            case None =>
+              None
+          }
+        case None =>
+          Future.successful(None)
+      } recover {
+        case t: Throwable =>
+          Logger.error("exception while fetching transactions")
+          t.printStackTrace
+          Future.successful(None)
+      }
+      eventualResult.flatMap(f => f)
+    } else {
+      Logger.info("No transactions found")
+      Future.successful(None)
+    }
+  }
+
   def getTransactions(maybeYear: Option[Int]): Future[Option[List[Transaction]]] = {
     if (maybePocketMathHost.isDefined & maybeTransactionsEndpoint.isDefined && maybeApiKey.isDefined) {
       val eventualWSResponse = wsClient.url(maybePocketMathHost.get + maybeTransactionsEndpoint.get).
@@ -63,9 +89,41 @@ class PocketMathService @Inject()(config: Configuration, wsClient: WSClient) {
         maybeTransactions match {
           case Some(transactions) =>
             if(maybeYear.isDefined) {
-              Some(transactions.filter(f => new DateTime(f.timestamp * 1000L).getYear == maybeYear.get))
+              Some(transactions.filter(f => new DateTime(f.timestamp * 1000L).getYear == maybeYear.get).sortBy(-_.value))
             } else {
               Some(transactions)
+            }
+          case None =>
+            None
+        }
+      } recover {
+        case t: Throwable =>
+          Logger.error("exception while fetching transactions")
+          t.printStackTrace
+          None
+      }
+    } else {
+      Logger.info("No transactions found")
+      Future.successful(None)
+    }
+  }
+
+  def getTransaction(value: String): Future[Option[Transaction]] = {
+    if (maybePocketMathHost.isDefined & maybeTransactionsEndpoint.isDefined && maybeApiKey.isDefined) {
+      val eventualWSResponse = wsClient.url(maybePocketMathHost.get + maybeTransactionsEndpoint.get).
+        withRequestTimeout(5000 milliseconds).
+        withHeaders("x-api-key" -> maybeApiKey.get).
+        get()
+      eventualWSResponse map { wsResponse =>
+        val maybeTransactions = Json.parse(wsResponse.json.toString).asOpt[List[Transaction]]
+        maybeTransactions match {
+          case Some(transactions) =>
+            if(value == "high") {
+              Some(transactions.sortBy(-_.value).head)
+            } else if(value == "low") {
+              Some(transactions.sortBy(_.value).head)
+            } else {
+              None
             }
           case None =>
             None

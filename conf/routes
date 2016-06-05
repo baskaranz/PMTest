@@ -3,7 +3,9 @@
 # ~~~~
 
 GET     /traders                           controllers.ApplicationController.traders(city: Option[String] ?= None)
+GET     /transaction/:value                controllers.ApplicationController.transaction(value: String ?= "high")
 GET     /transactions                      controllers.ApplicationController.transactions(year: Option[Int] ?= None)
+GET     /transactions/avg                  controllers.ApplicationController.avgTransactions(city: Option[Int] ?= None)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
