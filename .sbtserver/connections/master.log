@@ -1,0 +1,7 @@
+New log file opened at Sun Jun 05 19:43:50 SGT 2016 by 1199@Baskarans-MBP
+Taking next connection to: 52172
+New client attempting to connect on port: 52173-52172
+  Address = /192.168.1.226:52172
+This client on port 52173 has uuid 98c82353-8e90-46d0-bcd0-3b846c2a193e configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
+Connected Clients: play-fork-run-98c82353-8e90-46d0-bcd0-3b846c2a193e
+Taking next connection to: 52172
