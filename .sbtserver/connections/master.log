@@ -1,7 +1,29 @@
-New log file opened at Sun Jun 05 19:43:50 SGT 2016 by 1199@Baskarans-MBP
-Taking next connection to: 52172
-New client attempting to connect on port: 52173-52172
-  Address = /192.168.1.226:52172
-This client on port 52173 has uuid 98c82353-8e90-46d0-bcd0-3b846c2a193e configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
-Connected Clients: play-fork-run-98c82353-8e90-46d0-bcd0-3b846c2a193e
-Taking next connection to: 52172
+New log file opened at Mon Jun 06 02:22:48 SGT 2016 by 1789@Baskarans-MBP
+Taking next connection to: 53997
+New client attempting to connect on port: 53998-53997
+  Address = /192.168.1.226:53997
+This client on port 53998 has uuid 38892996-99b2-4408-8816-0595690dd215 configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
+Connected Clients: play-fork-run-38892996-99b2-4408-8816-0595690dd215
+Taking next connection to: 53997
+New client attempting to connect on port: 54003-53997
+  Address = /192.168.1.226:53997
+Handshake exception on socket: 54003
+sbt.impl.ipc.HandshakeException: Unable to perform handshake
+	at sbt.impl.ipc.Peer.handshake(IPC.scala:46)
+	at sbt.impl.ipc.MultiClientServer.<init>(IPC.scala:150)
+	at sbt.server.SbtServerSocketHandler$$anon$1.run(SbtServerSocketHandler.scala:43)
+Caused by: java.net.SocketException: Connection reset
+	at java.net.SocketInputStream.read(SocketInputStream.java:209)
+	at java.net.SocketInputStream.read(SocketInputStream.java:141)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:246)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:265)
+	at java.io.DataInputStream.readInt(DataInputStream.java:387)
+	at sbt.impl.ipc.Peer.receive(IPC.scala:95)
+	at sbt.impl.ipc.Peer.handshake(IPC.scala:49)
+	... 2 more
+Taking next connection to: 53997
+New client attempting to connect on port: 54004-53997
+  Address = /192.168.1.226:53997
+This client on port 54004 has uuid 8460d30e-0c0d-42ef-a199-4d9bbd2b7af5 configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
+Connected Clients: play-fork-run-38892996-99b2-4408-8816-0595690dd215, play-fork-run-8460d30e-0c0d-42ef-a199-4d9bbd2b7af5
+Taking next connection to: 53997
